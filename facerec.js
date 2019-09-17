@@ -6,10 +6,10 @@ console.log(x);*/
 const vidBorder = document.getElementById('vidborder');
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+  faceapi.nets.tiny_face_detector.loadFromUri('/models'),
+  faceapi.nets.face_landmark_68.loadFromUri('/models'),
+  faceapi.nets.face_recognition.loadFromUri('/models'),
+  faceapi.nets.face_expression.loadFromUri('/models'),
 ]).then(startVideo)
 
 function startVideo() {
