@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Facetrix</title>
+    <script src="face-api.min.js" defer></script>
+    <script src="facerec.js" defer></script>
+    <style>
+      body {
+        margin: 0;
+        padding:0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #main-border {
+        width: 300px;
+        height: 500px;
+        border: 1px solid green;
+        border-radius: 5px;
+        margin: auto;
+      }
+
+      #vidborder {
+        border: 1px solid black;
+        width: 250px;
+        height: 300px;
+        margin: auto;
+        margin-top: 40px;
+        display: block;
+
+      }
+
+      #findFace {
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+        width: 100px;
+        display: block;
+        margin: auto;
+      }
+
+      #camera {
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+        width: 100px;
+        display: block;
+        margin: auto;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="main-border">
+      <video id="vidborder" autoplay>
+
+      </video>
+      <div id="border">
+      </div>
+      <br>
+      <button type="button" id="camera" value="cam-on">Start Camera</button>
+      <br>
+      <button type="button" id="findFace" value="off">Find Face</button>
+    </div>
+
+  </body>
+</html>
