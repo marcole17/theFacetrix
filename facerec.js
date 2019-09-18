@@ -26,7 +26,7 @@ vidBorder.addEventListener('play', () => {
   const displaySize = { width: vidBorder.width, height: vidBorder.height};
   faceapi.matchDimensions(canvas, displaySize);
   setInterval(async () => {
-    const detections = await face.detectAllfaces(vidBorder,
+    const detections = await faceapi.detectAllfaces(vidBorder,
     new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
     const resizedDetections = faceapi.resizeResults(detections, displaySize);
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
