@@ -21,7 +21,17 @@ function startVideo() {
 }
 
 vidBorder.addEventListener('play', () => {
-  console.log('hello');
+  const canvas = faceapi.createCanvasFromMedia(vidBorder);
+  document.body.append(canvas);
+  const displaySize = { width: vidBorder.width, height: vidBorder.height};
+  faceapi.matchDimensions(canvas, displaySize);
+  setInterval(async () => {
+    const detections = await face.detectAllfaces(vidBorder,
+    new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    faceapi.draw.drawDetections(canvas, resizedDetections)
+  }, 100)
 })
 
 document.getElementById("camera").onclick = function() {
