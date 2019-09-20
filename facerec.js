@@ -22,7 +22,8 @@ function startVideo() {
 
 vidBorder.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(vidBorder);
-  vidBorder.insertBefore(canvas, vidBorder.childNodes[1]);
+  //vidBorder.insertBefore(canvas, vidBorder.childNodes[1]);
+  document.getElementById("vidborder").appendChild(canvas);
   const displaySize = { width: vidBorder.width, height: vidBorder.height};
   faceapi.matchDimensions(canvas, displaySize);
   setInterval(async () => {
