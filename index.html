@@ -24,16 +24,17 @@
         margin: auto;
       }
 
-      canvas {
-        position: absolute;
-        border: 1px solid red;
-      }
-
       #vidborder {
         border: 1px solid black;
         margin: auto;
         margin-top: 40px;
         display: block;
+        width: 250px;
+        height: 300px;
+      }
+
+      canvas {
+        position: absolute;
       }
 
       #findFace {
@@ -59,7 +60,9 @@
 
   <body>
     <div id="main-border">
-      <video id="vidborder" width="250" height="300"; autoplay></video>
+      <div id="vidborder">
+        <video id="video" width="250" height="300"; autoplay></video>
+      </div>
       <br>
       <button type="button" id="camera" value="cam-on">Start Camera</button>
       <br>

@@ -3,7 +3,7 @@
 /*var x = document.getElementsByTagName("button")[0].getAttribute("value")
 console.log(x);*/
 
-const vidBorder = document.getElementById('vidborder');
+const video = document.getElementById('video');
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
@@ -15,19 +15,20 @@ Promise.all([
 function startVideo() {
   navigator.getUserMedia(
     { video: {} },
-    stream => vidBorder.srcObject = stream,
+    stream => video.srcObject = stream,
     err => console.error(err)
   )
 }
 
-vidBorder.addEventListener('play', () => {
-  const canvas = faceapi.createCanvasFromMedia(vidBorder);
-  //vidBorder.insertBefore(canvas, vidBorder.childNodes[1]);
-  document.getElementById("vidborder").appendChild(canvas);
-  const displaySize = { width: vidBorder.width, height: vidBorder.height};
+video.addEventListener('play', () => {
+  const canvas = faceapi.createCanvasFromMedia(video);
+  const vidBorder = document.getElementById("vidborder");
+  vidBorder.insertBefore(canvas, vidBorder.childNodes[0]);
+  //document.getElementById("vidborder").appendChild(canvas);
+  const displaySize = { width: video.width, height: video.height};
   faceapi.matchDimensions(canvas, displaySize);
   setInterval(async () => {
-    const detections = await faceapi.detectAllFaces(vidBorder,
+    const detections = await faceapi.detectAllFaces(video,
     new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
     const resizedDetections = faceapi.resizeResults(detections, displaySize);
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
