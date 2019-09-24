@@ -32,7 +32,7 @@ video.addEventListener('play', () => {
     new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
     const resizedDetections = faceapi.resizeResults(detections, displaySize);
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-    faceapi.draw.drawDetections(canvas, resizedDetections)
+
   }, 100)
 })
 
@@ -57,6 +57,7 @@ document.getElementById("findFace").onclick = function() {
     document.getElementById("findFace").value = "on";
     this.style.backgroundColor = 'red';
     this.innerHTML = 'Click for off';
+    faceapi.draw.drawDetections(canvas, resizedDetections)
   } else {
     document.getElementById("findFace").value = "off";
     this.style.backgroundColor = 'green';
