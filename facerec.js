@@ -20,11 +20,21 @@ function startVideo() {
   )
 }
 
-video.addEventListener('play', () => {
+var faceDetect;
+function detectFace() {
+  faceDetect = setInterval(async () => {
+    const detections = await faceapi.detectAllFaces(video,
+    new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    faceapi.draw.drawDetections(canvas, resizedDetections)
+  }, 100);
+}
+
+/*video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video);
   const vidBorder = document.getElementById("vidborder");
   vidBorder.insertBefore(canvas, vidBorder.childNodes[0]);
-  //document.getElementById("vidborder").appendChild(canvas);
   const displaySize = { width: video.width, height: video.height};
   faceapi.matchDimensions(canvas, displaySize);
   setInterval(async () => {
@@ -32,9 +42,12 @@ video.addEventListener('play', () => {
     new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
     const resizedDetections = faceapi.resizeResults(detections, displaySize);
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-
-  }, 100)
-})
+    faceapi.draw.drawDetections(canvas, resizedDetections)
+  }, 100);
+  video.addEventListener("pause", () => {
+    vidBorder.removeChild(vidBorder.childNodes[0]);
+  })
+})*/
 
 document.getElementById("camera").onclick = function() {
   if (this.value == "cam-on") {
@@ -46,21 +59,25 @@ document.getElementById("camera").onclick = function() {
     document.getElementById("camera").value = "cam-on";
     this.style.backgroundColor = "green";
     this.innerHTML = "Start Camera";
+    video.pause();
     }
   }
 
-//startVideo()
-
 document.getElementById("findFace").onclick = function() {
   if (this.value == "off") {
-    //this.value = "on";
     document.getElementById("findFace").value = "on";
     this.style.backgroundColor = 'red';
     this.innerHTML = 'Click for off';
-    faceapi.draw.drawDetections(canvas, resizedDetections)
+    const canvas = faceapi.createCanvasFromMedia(video);
+    const vidBorder = document.getElementById("vidborder");
+    vidBorder.insertBefore(canvas, vidBorder.childNodes[0]);
+    const displaySize = { width: video.width, height: video.height};
+    faceapi.matchDimensions(canvas, displaySize);
+    detectFace();
   } else {
     document.getElementById("findFace").value = "off";
     this.style.backgroundColor = 'green';
     this.innerHTML = 'Find Face'
+    clearInterval(faceDetect);
   }
 }
