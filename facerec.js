@@ -13,14 +13,26 @@ Promise.all([
 ])
 
 function startVideo() {
+  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    .then(function(stream) {
+      video.srcObject = stream;
+      video.play();
+    })
+    .catch(function(err) {
+      console.log("An error occurred: " + err);
+    })
+
+}
+ //original
+/*function startVideo() {
   navigator.getUserMedia(
     { video: {} },
     stream => video.srcObject = stream,
     err => console.error(err)
   )
-}
+}*/
 
-video.addEventListener('play', () => {
+video.addEventListener('canplay', () => {
   const canvas = faceapi.createCanvasFromMedia(video);
   const vidBorder = document.getElementById("vidborder");
   vidBorder.insertBefore(canvas, vidBorder.childNodes[0]);
